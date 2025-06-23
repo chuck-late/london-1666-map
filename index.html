@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pre-Fire London Interactive Map</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #map-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+    }
+    #map-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .marker {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: red;
+      border-radius: 50%;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+    }
+    .tooltip {
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 5px;
+      font-size: 0.9em;
+      pointer-events: none;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="map-container">
+    <img id="map-image" src="00_LONDON_1666.jpg" alt="London 1666 Map" />
+    <div id="tooltip" class="tooltip"></div>
+  </div>
+  <script>
+    const locations = [
+      { key: 1, name: "Westminster Abbey", description: "A major Gothic church and coronation site.", x: 15, y: 65 },
+      { key: 2, name: "Whitehall", description: "Royal residence area until 1698.", x: 18, y: 62 },
+      { key: 3, name: "Scotland Yard", description: "Historic police HQ.", x: 22, y: 60 },
+      { key: 4, name: "St. James’s", description: "Royal area including palace and park.", x: 20, y: 58 },
+      { key: 5, name: "St. James Park", description: "Royal park near Buckingham Palace.", x: 20, y: 55 },
+      { key: 6, name: "The New River", description: "Artificial waterway for London’s water supply.", x: 25, y: 20 },
+      { key: 7, name: "The Pall Mall", description: "Fashionable Westminster street.", x: 19, y: 54 },
+      { key: 8, name: "Clarendon House", description: "Grand townhouse of Edward Hyde.", x: 23, y: 53 },
+      { key: 9, name: "St. James Fields", description: "Recreational open land.", x: 21, y: 50 },
+      { key: 10, name: "The New Buildings", description: "Recent Westminster developments.", x: 22, y: 49 },
+      { key: 11, name: "Moorfields", description: "Open area north of the city walls.", x: 75, y: 25 },
+      { key: 12, name: "Spitalfields", description: "Market district later home to weavers.", x: 80, y: 23 },
+      { key: 13, name: "Limehouse", description: "Dockside shipbuilding area.", x: 92, y: 50 },
+      { key: 14, name: "Bishopsgate Street", description: "Main City of London road.", x: 78, y: 30 },
+      { key: 15, name: "Bedlam", description: "Bethlehem Hospital asylum.", x: 76, y: 28 },
+      { key: 16, name: "Old Swan", description: "Thames-side wharf/stairs.", x: 65, y: 63 },
+      { key: 17, name: "Aldgate", description: "Gate in the London Wall.", x: 85, y: 33 },
+      { key: 18, name: "Tower Hill", description: "Site of public executions.", x: 88, y: 48 },
+      { key: 19, name: "Queenhithe", description: "Dock and marketplace on the Thames.", x: 63, y: 58 },
+      { key: 20, name: "Pickle Herring Stairs", description: "Riverside stairs in Southwark.", x: 67, y: 70 },
+      { key: 21, name: "East Smithfield", description: "Area near the Tower with plague pits.", x: 87, y: 52 },
+      { key: 22, name: "The Minories", description: "Former nunnery turned industrial.", x: 84, y: 50 },
+      { key: 23, name: "Custom House", description: "Collected customs duties on goods.", x: 70, y: 60 },
+      { key: 24, name: "Temple Stairs", description: "Stairs near the Temple legal district.", x: 58, y: 55 },
+      { key: 25, name: "St. Catharines", description: "Dock area near the Tower.", x: 90, y: 53 },
+    ];
+
+    const container = document.getElementById("map-container");
+    const tooltip = document.getElementById("tooltip");
+
+    locations.forEach(loc => {
+      const marker = document.createElement("div");
+      marker.classList.add("marker");
+      marker.style.left = `${loc.x}%`;
+      marker.style.top = `${loc.y}%`;
+      marker.title = loc.name;
+      marker.addEventListener("mouseenter", () => {
+        tooltip.innerHTML = `<strong>${loc.name}</strong><br>${loc.description}`;
+        tooltip.style.left = `${loc.x}%`;
+        tooltip.style.top = `${loc.y - 3}%`;
+        tooltip.style.display = "block";
+      });
+      marker.addEventListener("mouseleave", () => {
+        tooltip.style.display = "none";
+      });
+      container.appendChild(marker);
+    });
+  </script>
+</body>
+</html>
